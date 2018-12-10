@@ -99,6 +99,7 @@ public class MainWindow extends JFrame {
             FileReaderWriter fileWriter = new FileReaderWriter();
 
             fileWriter.setDbData(dataBaseData);
+            JOptionPane.showMessageDialog(this,"Сохранение данных из БД выполнено");
         });
 
         getFromReserv.addActionListener(e -> {
@@ -116,11 +117,10 @@ public class MainWindow extends JFrame {
             java.util.List<Referee> referees = dataBaseData.getReferees();
             List<Sportsman> sportsmen = dataBaseData.getSportsmen();
 
-            System.out.println(referees);
-            System.out.println(sportsmen);
-
             DataBaseWorker dataBaseWorker = DataBaseWorker.getInstance();
             dataBaseWorker.addSportsmenAndReferees(sportsmen, referees);
+
+            JOptionPane.showMessageDialog(this,"Загрузка ранее сохранённых данных в БД выполнена");
         });
     }
 

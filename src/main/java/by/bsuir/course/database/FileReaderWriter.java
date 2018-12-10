@@ -12,14 +12,14 @@ public class FileReaderWriter {
         DataBaseData dataBaseData = null;
 
         if (!Files.exists(Paths.get("C:\\Users\\Acer\\eclipse-workspace\\" +
-                "CourseWork\\Try\\CourseWorkServerFinal\\out" +
-                "\\artifacts\\CourseWorkServer_jar\\data.txt"))) {
+                "CourseWork\\Try\\CourseWorkServer3\\out\\artifacts\\" +
+                "CourseWorkServer_jar\\data.txt"))) {
             return null;
         }
         try {
             if (Files.size(Paths.get("C:\\Users\\Acer\\eclipse-workspace\\" +
-                    "CourseWork\\Try\\CourseWorkServerFinal\\out" +
-                    "\\artifacts\\CourseWorkServer_jar\\data.txt")) == 0) {
+                    "CourseWork\\Try\\CourseWorkServer3\\out\\artifacts\\" +
+                    "CourseWorkServer_jar\\data.txt")) == 0) {
                 dataBaseData = new DataBaseData();
                 dataBaseData.setReferees(new ArrayList<>());
                 dataBaseData.setSportsmen(new ArrayList<>());
@@ -37,11 +37,7 @@ public class FileReaderWriter {
 
             dataBaseData = (DataBaseData) oi.readObject();
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
         return dataBaseData;
@@ -50,9 +46,9 @@ public class FileReaderWriter {
     public void setDbData(DataBaseData dbData) {
 
         try {
-            File file = new File("C:\\Users\\Acer\\eclipse-workspace" +
-                    "\\CourseWork\\Try\\CourseWorkServerFinal\\" +
-                    "out\\artifacts\\CourseWorkServer_jar\\data.txt");
+            File file = new File("C:\\Users\\Acer\\eclipse-workspace\\" +
+                    "CourseWork\\Try\\CourseWorkServer3\\out\\artifacts\\" +
+                    "CourseWorkServer_jar\\data.txt");
             try (FileOutputStream fos = new FileOutputStream(file);
                  ObjectOutputStream o = new ObjectOutputStream(fos)) {
                 o.writeObject(dbData);
