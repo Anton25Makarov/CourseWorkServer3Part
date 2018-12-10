@@ -1,10 +1,9 @@
 package by.bsuir.course.entities;
 
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
+
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Sportsman extends Human implements Serializable, MarkCalculator {
@@ -33,11 +32,18 @@ public class Sportsman extends Human implements Serializable, MarkCalculator {
 
     private double calculateFigureSkatingMark() {
         List<Mark> marks = new ArrayList<>(performance.marks.values());
+        marks.removeAll(Collections.singleton(null));
         double total = 0;
         for (Mark mark : marks) {
+            if (mark == null) {
+                continue;
+            }
             double technicalMark = ((FigureSkatingMark) mark).getTechnicalMark();
             double presentationMark = ((FigureSkatingMark) mark).getPresentationMark();
             total += (technicalMark + presentationMark) / 2;
+        }
+        if (marks.size() == 0) {
+            return 0;
         }
         return total / marks.size();
     }
@@ -45,11 +51,17 @@ public class Sportsman extends Human implements Serializable, MarkCalculator {
     private double calculateDivingMark() {
         List<Mark> marks = new ArrayList<>(performance.marks.values());
         double total = 0;
-        if (marks.size() == 3) {
+        marks.removeAll(Collections.singleton(null));
+        if (marks.size() > 2) {
             marks = marks.stream()
                     .sorted(Comparator.comparingDouble(mark -> ((DivingMark) mark).getMark()))
                     .collect(Collectors.toList());
-            return ((DivingMark) marks.get(1)).getMark() * 0.6;
+            marks.remove(0);
+            marks.remove(marks.size() - 1);
+            for (Mark mark : marks) {
+                total += ((DivingMark) mark).getMark() * 0.6;
+            }
+            return total;
         }
         return 0;
     }
@@ -57,16 +69,19 @@ public class Sportsman extends Human implements Serializable, MarkCalculator {
     private double calculateSkiJumpingMark() {
         List<Mark> marks = new ArrayList<>(performance.marks.values());
         double total = 0;
+        marks.removeAll(Collections.singleton(null));
         marks = marks.stream()
-                .sorted(Comparator.comparingDouble(mark -> ((DivingMark) mark).getMark()))
+                .sorted(Comparator.comparingDouble(mark -> ((SkiJumpingMark) mark).getMark()))
                 .collect(Collectors.toList());
         if (marks.size() > 2) {
+
             marks.remove(0);
             marks.remove(marks.size() - 1);
             for (Mark mark : marks) {
+
                 total += ((SkiJumpingMark) mark).getMark();
             }
-            return ((DivingMark) marks.get(1)).getMark() * 0.6;
+            return total;
         }
         return 0;
     }

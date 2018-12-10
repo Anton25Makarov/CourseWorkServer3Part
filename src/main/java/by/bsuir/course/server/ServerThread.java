@@ -83,8 +83,19 @@ public class ServerThread extends Thread {
                     e.printStackTrace();
                 }
                 break;
+            case "calculate Result":
+                Sportsman sportsman = (Sportsman) object;
+
+                double totalMark = sportsman.calculateMark();
+
+                String   sMark = String.format("%(.2f", totalMark);
+
+                objectOutputStream.flush();
+                objectOutputStream.reset();
+                objectOutputStream.writeObject(sMark);
+                break;
             default:
-                throw new IllegalArgumentException();
+                throw new UnsupportedEncodingException("Unknown: " + whatToDo);
         }
     }
 
