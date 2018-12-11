@@ -4,6 +4,7 @@ package by.bsuir.course.server;
 import by.bsuir.course.database.DataBaseWorker;
 import by.bsuir.course.entities.Referee;
 import by.bsuir.course.entities.Sportsman;
+import by.bsuir.course.logic.MarkCalculator;
 
 import java.io.*;
 import java.net.Socket;
@@ -67,7 +68,13 @@ public class ServerThread extends Thread {
                 List<Referee> referees = readRefereesFromBd();
                 List<Sportsman> sportsmen = readSportsmanFromBd(referees);
 
+                objectOutputStream.flush();
+                objectOutputStream.reset();
+
                 objectOutputStream.writeObject(referees);
+
+                objectOutputStream.flush();
+                objectOutputStream.reset();
                 objectOutputStream.writeObject(sportsmen);
                 break;
             case "setAll":
@@ -77,6 +84,8 @@ public class ServerThread extends Thread {
 
                     List<Referee> refereesForAdd = (List<Referee>) objectInputStream.readObject();
 
+                    objectOutputStream.flush();
+                    objectOutputStream.reset();
                     objectOutputStream.writeObject(addSportsmenAndRefereesInBd(sportsmenForAdd, refereesForAdd));
 
                 } catch (ClassNotFoundException e) {
@@ -86,7 +95,9 @@ public class ServerThread extends Thread {
             case "calculate Result":
                 Sportsman sportsman = (Sportsman) object;
 
-                double totalMark = sportsman.calculateMark();
+                MarkCalculator calculator = new MarkCalculator();
+
+                double totalMark = calculator.calculate(sportsman);
 
                 String   sMark = String.format("%(.2f", totalMark);
 

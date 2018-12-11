@@ -3,7 +3,7 @@ package by.bsuir.course.factory;
 import by.bsuir.course.entities.*;
 
 public class SportFactory {
-    public Sport createSport(String sport) {
+    public SoloSport createSport(String sport) {
         switch (sport) {
             case "Фигурное катание":
                 return new FigureSkating(sport);

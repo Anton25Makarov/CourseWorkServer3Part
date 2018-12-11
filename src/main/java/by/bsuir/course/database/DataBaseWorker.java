@@ -139,26 +139,13 @@ public class DataBaseWorker {
                     sportsman.setAddress(address);
 
 
+
                     String sportsmanSport = resultSet.getString("sport");
-                    /*Sport sport;
-                    switch (sportsmanSport) {
-                        case "Фигурное катание":
-                            sport = new FigureSkating(sportsmanSport);
-                            break;
-                        case "Дайвинг":
-                            sport = new Diving(sportsmanSport);
-                            break;
-                        case "Прыжки с трамплина":
-                            sport = new SkiJumping(sportsmanSport);
-                            break;
-                        default:
-                            throw new UnsupportedOperationException();
-                    }*/
 
                     SportFactory sportFactory = new SportFactory();
-                    Sport sport = sportFactory.createSport(sportsmanSport);
+                    SoloSport soloSport = sportFactory.createSport(sportsmanSport);
 
-                    sportsman.setPerformance(sport);
+                    sportsman.setPerformance(soloSport);
 
                     sportsmen.add(sportsman);
                 }

@@ -1,13 +1,13 @@
 SELECT *
 FROM users;
 
-insert into game (sport, date, address_id, team_first_id, team_second_id)
+insert into game (soloSport, date, address_id, team_first_id, team_second_id)
 values ('Баскетбол', '13.11.2018', 1, 3, 4);
 
 insert into referee_has_game (referee_id, game_id)
 VALUES (2, 1);
 
-insert into referee (name, surname, age, sport, qualification_id, address_id)
+insert into referee (name, surname, age, soloSport, qualification_id, address_id)
 VALUES ('Анатолий', 'Купревич', 48, 'Футбол', 1, 1);
 
 
