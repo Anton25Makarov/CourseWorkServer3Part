@@ -32,7 +32,7 @@ public class DataBaseWorker {
         return instance;
     }
 
-    private static void loadDataBaseProperties(){
+    private static void loadDataBaseProperties() {
         Configurator configurator = new Configurator();
 
         DataBaseProperties dataBaseProperties = configurator.getProperties();
@@ -137,7 +137,6 @@ public class DataBaseWorker {
                     address.setCity(resultSet.getString("city"));
                     address.setCountry(resultSet.getString("country"));
                     sportsman.setAddress(address);
-
 
 
                     String sportsmanSport = resultSet.getString("sport");
@@ -308,7 +307,7 @@ public class DataBaseWorker {
                 }
                 //////////////////////////////////////////////////////////// insert into Marks
                 for (Sportsman sportsman : sportsmen) {
-                    if (sportsman.getPerformance().getMarks().isEmpty()) {
+                    if (sportsman.getPerformance().getMarks() == null || sportsman.getPerformance().getMarks().isEmpty()) {
                         continue;
                     }
                     /////////////////////// find sportsman ID

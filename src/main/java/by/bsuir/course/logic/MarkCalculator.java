@@ -69,7 +69,6 @@ public class MarkCalculator {
             marks.remove(0);
             marks.remove(marks.size() - 1);
             for (Mark mark : marks) {
-
                 total += ((SkiJumpingMark) mark).getMark();
             }
             return total;
